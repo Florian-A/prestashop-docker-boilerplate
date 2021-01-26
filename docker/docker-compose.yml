@@ -27,6 +27,25 @@ services:
     restart: on-failure
     volumes:
       - ${PWD}/db:/var/lib/mysql:cached
+  ftpd_server:
+    build:
+      context: ./
+      dockerfile: ftp
+    container_name: pure-ftpd
+    ports:
+      - "21:21"
+      - "30000-30009:30000-30009"
+    volumes:
+      - "${PWD}:/home/ftp/"
+      - "/home/ftp/docker"
+      - "/home/ftp/db"
+      - "/home/ftp/.git"
+    environment:
+      PUBLICHOST: "localhost"
+      FTP_USER_NAME: ftp
+      FTP_USER_PASS: 1234
+      FTP_USER_HOME: /home/ftp
+    restart: always
 networks:
   bridge:
     driver: bridge

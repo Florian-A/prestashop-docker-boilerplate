@@ -10,7 +10,7 @@ main()
 
 build()
 {
-    docker-sync stop --config $this_directory/docker/docker-sync.yml
+    docker-compose -f $this_directory/docker/docker-compose.yml down -v
     sleep 2;
     exit;
 }
